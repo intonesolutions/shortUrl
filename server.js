@@ -34,10 +34,14 @@ app.post('/api/GenShortUrl', (req, res) => {
 // GET /api/surl/:shortUrlId
 app.get('/api/surl/:shortUrlId', (req, res) => {
     const { shortUrlId } = req.params;
+    console.log(`found shortUrlId: ${shortUrlId}`);
     const filePath = path.join(DATA_DIR, `${shortUrlId}.txt`);
 
     fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) return res.status(404).send('Short URL not found');
+        if (err) {
+            console.log(`cannot find file: ${filePath}`);
+            return res.status(404).send('Short URL not found');
+        }
         res.redirect(data);
     });
 });
