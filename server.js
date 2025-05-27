@@ -53,11 +53,11 @@ app.get('/.well-known/acme-challenge/7eZsgW0pvFNRoxl5O22wjNBhH1N_iXjfmgQPU3O-EoU
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
-// let https = require('https');
-// const key = fs.readFileSync('./key.pem');
-// const cert = fs.readFileSync('./cert.pem');
-// let httpsServer = https.createServer({
-//     key: key,
-//     cert: cert
-// }, app);
-// httpsServer.listen(PORT + 443);
+let https = require('https');
+const key = fs.readFileSync('./key.pem');
+const cert = fs.readFileSync('./cert.pem');
+let httpsServer = https.createServer({
+    key: key,
+    cert: cert
+}, app);
+httpsServer.listen(PORT + 443);
