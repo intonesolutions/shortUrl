@@ -36,7 +36,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 3200
+    - port: 80
       targetPort: 3200
       protocol: TCP
       name: port3200
