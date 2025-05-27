@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: shorturl
-        image: 582822331796.dkr.ecr.us-east-1.amazonaws.com/shorturl
+        image: 582822331796.dkr.ecr.us-east-1.amazonaws.com/shorturl:latest
         ports:
         - containerPort: 3200
 ---
