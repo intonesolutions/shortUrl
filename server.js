@@ -43,6 +43,7 @@ app.get('/api/surl/:shortUrlId', (req, res) => {
             console.log(`cannot find file: ${filePath}`);
             return res.status(404).send('Short URL not found');
         }
+        console.log(`redirect to : ${data.substring(0,100)}...`);
         res.redirect(data);
     });
 });
