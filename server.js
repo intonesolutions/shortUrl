@@ -33,6 +33,7 @@ app.post('/api/GenShortUrl', (req, res) => {
 
 // GET /api/surl/:shortUrlId
 app.get('/api/surl/:shortUrlId', (req, res) => {
+    console.log(`request url: ${req.url}`);
     const { shortUrlId } = req.params;
     console.log(`found shortUrlId: ${shortUrlId}`);
     const filePath = path.join(DATA_DIR, `${shortUrlId}.txt`);
