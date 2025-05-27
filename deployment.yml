@@ -40,6 +40,10 @@ spec:
       targetPort: 3200
       protocol: TCP
       name: port3200
+    - port: 443
+      targetPort: 3643
+      protocol: TCP
+      name: port3643
   selector:
     app.kubernetes.io/name: shorturl
 ---

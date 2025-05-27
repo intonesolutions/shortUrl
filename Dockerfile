@@ -7,4 +7,5 @@ COPY package.json ./
 RUN npm install
 COPY . .
 EXPOSE 3200
+EXPOSE 3643
 CMD [ "npm", "start" ]

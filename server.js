@@ -47,7 +47,17 @@ app.get('/api/surl/:shortUrlId', (req, res) => {
         res.redirect(data);
     });
 });
-
+app.get('/.well-known/acme-challenge/7eZsgW0pvFNRoxl5O22wjNBhH1N_iXjfmgQPU3O-EoU', (req, res) => {
+    return res.status(200).send('7eZsgW0pvFNRoxl5O22wjNBhH1N_iXjfmgQPU3O-EoU.H2kC-830-X4ktcQiX9WG7-wof9-S8km2_j6-nAXsmhY');
+});
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
+let https = require('https');
+const key = fs.readFileSync('./key.pem');
+const cert = fs.readFileSync('./cert.pem');
+let httpsServer = https.createServer({
+    key: key,
+    cert: cert
+}, app);
+httpsServer.listen(PORT + 443);
