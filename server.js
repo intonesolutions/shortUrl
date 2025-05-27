@@ -1,0 +1,47 @@
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const { v4: uuidv4 } = require('uuid');
+
+const app = express();
+const PORT = 3200;
+const DATA_DIR = path.join(__dirname, 'data');
+
+app.use(express.json());
+
+// Ensure data directory exists
+if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR);
+}
+
+// POST /api/GenShortUrl
+app.post('/api/GenShortUrl', (req, res) => {
+    const { longUrl } = req.body;
+
+    if (!longUrl) {
+        return res.status(400).json({ error: 'longUrl is required' });
+    }
+
+    const shortUrlId = uuidv4();
+    const filePath = path.join(DATA_DIR, `${shortUrlId}.txt`);
+
+    fs.writeFile(filePath, longUrl, (err) => {
+        if (err) return res.status(500).json({ error: 'Failed to save URL' });
+        res.json({ shortUrlId });
+    });
+});
+
+// GET /api/surl/:shortUrlId
+app.get('/api/surl/:shortUrlId', (req, res) => {
+    const { shortUrlId } = req.params;
+    const filePath = path.join(DATA_DIR, `${shortUrlId}.txt`);
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) return res.status(404).send('Short URL not found');
+        res.redirect(data);
+    });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});
