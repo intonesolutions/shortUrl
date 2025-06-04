@@ -34,16 +34,17 @@ metadata:
   annotations:
     version: "1.01"
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
-    - port: 80
-      targetPort: 3200
-      protocol: TCP
-      name: port3200
-    - port: 443
-      targetPort: 3643
+    # - port: 80
+    #   targetPort: 3200
+    #   protocol: TCP
+    #   name: port3200
+    - port: 443 # service port
+      targetPort: 3643 # container port
       protocol: TCP
       name: port3643
+      nodePort: 443  # exposed port on each node
   selector:
     app.kubernetes.io/name: shorturl
 ---
